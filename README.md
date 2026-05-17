@@ -1,6 +1,6 @@
 # stremio-local-addon
 
-An add-on for stremio meant to be ran locally which indexes locally found torrent and video files
+An add-on for stremio meant to be ran on a server which indexes locally found torrent and video files
 
 It does a few things:
 
@@ -9,11 +9,43 @@ It does a few things:
 * Presents a `catalog` to Stremio containing all the found items, where IMDB-recognized video files are grouped by IMDB ID and torrents are grouped by BitTorrent infohash; non-recognized video files are omitted
 * Allows Stremio to open any BitTorrent infoHash using `/meta/bt:<infoHash>` request to this add-on
 
+## Running with Docker Compose
+
+Copy `docker-compose.yml` and adjust the environment variables and volume paths to your setup, then run:
+
+```sh
+docker-compose up -d
+```
+
+### Environment variables
+
+| Variable | Default | Description |
+|---|---|---|
+| `PUID` | `1001` | User ID the process runs as (for file permission matching) |
+| `PGID` | `1002` | Group ID the process runs as |
+| `TZ` | `Europe/Lisbon` | Timezone |
+| `NODE_ENV` | `production` | Node environment |
+| `PORT` | `1222` | Port the addon listens on inside the container |
+| `HOST` | `0.0.0.0` | Host the addon binds to |
+| `REINDEX_INTERVAL_MS` | `600000` | How often (ms) the addon rescans for new files |
+| `PUBLIC_HOST` | `http://192.168.3.20:1222` | Public URL used in the manifest and install link — set this to your LAN IP/hostname |
+| `HOME` | `/media` | Home directory inside the container (used as the scan root) |
+
+### Volumes
+
+| Host path | Container path | Description |
+|---|---|---|
+| `./localFiles` | `/app/localFiles` | Persistent storage for the addon index |
+| `./media` | `/media` (read-only) | Directory tree that will be scanned for video/torrent files |
+
+After the container starts, open `http://<PUBLIC_HOST>/manifest.json` in a browser to verify the addon is running, then install it in Stremio via `http://<PUBLIC_HOST>/manifest.json`.
+
 ## Testing
 
-``npm start``
-
-``npm test``
+```sh
+npm start
+npm test
+```
 
 ## Data structure
 
