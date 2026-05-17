@@ -1,0 +1,22 @@
+services:
+  stremio-local-addon:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: stremio-local-addon
+    environment:
+      - PUID=1001
+      - PGID=1002
+      - TZ=Europe/Lisbon
+      - NODE_ENV=production
+      - PORT=1222
+      - HOST=0.0.0.0
+      - REINDEX_INTERVAL_MS=600000
+      - PUBLIC_HOST=http://192.168.3.20:1222
+      - HOME=/media
+    ports:
+      - "1222:1222"
+    volumes:
+      - ./localFiles:/app/localFiles
+      - ./media:/media:ro
+    restart: unless-stopped

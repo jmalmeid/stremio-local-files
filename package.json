@@ -1,34 +1,38 @@
 {
-  "name": "stremio-local-files",
-  "version": "1.7.3",
-  "description": "Local stremio addon to scan local video files and provide them to Stremio ",
+  "name": "stremio-local-addon",
+  "version": "1.10.0",
+  "description": "Local add-on to find playable files: .torrent, .mp4, .mkv and .avi",
   "main": "index.js",
+  "dependencies": {
+    "byline": "^5.0.0",
+    "name-to-imdb": "^3.0.4",
+    "node-fetch": "^2.3.0",
+    "parse-torrent": "^6.1.2",
+    "stremio-addon-sdk": "^0.6.4",
+    "video-name-parser": "^1.4.7",
+    "which": "^1.3.1"
+  },
+  "devDependencies": {
+    "stremio-addon-client": "^1.12.1",
+    "tape": "^4.10.1"
+  },
   "scripts": {
-    "test": "tape test/*",
-    "start": "node index.js"
+    "test": "node test/index",
+    "start": "node bin/addon"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/Ivshti/stremio-local-files.git"
+    "url": "git+https://github.com/Stremio/stremio-local-addon.git"
   },
   "keywords": [
     "stremio",
-    "video",
-    "files"
+    "local",
+    "bittorrent"
   ],
-  "author": "Ivo Georgiev <ivo@linvo.com> (http://ivogeorgiev.com)",
+  "author": "Smart Code OOD",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/Ivshti/stremio-local-files/issues"
+    "url": "https://github.com/Stremio/stremio-local-addon/issues"
   },
-  "homepage": "https://github.com/Ivshti/stremio-local-files",
-  "dependencies": {
-    "async": "^1.5.2",
-    "byline": "^4.2.1",
-    "name-to-imdb": "^1.4.1",
-    "parse-torrent-file": "4.0.x",
-    "stremio-addons": "^2.5.1",
-    "video-name-parser": "^1.0.1",
-    "walk": "^2.3.9"
-  }
+  "homepage": "https://github.com/Stremio/stremio-local-addon#readme"
 }
